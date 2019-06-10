@@ -18,6 +18,7 @@ var hotmangaRoute = require('./routes/hotmanga');
 var hotmangaloaderRoute = require('./routes/hotloader');
 var newmangaRoute = require('./routes/newmanga');
 var newmangaloaderRoute = require('./routes/newloader');
+var testRoute = require('./routes/test');
 var app = express();
 
 // view engine setup
@@ -44,6 +45,7 @@ app.use('/hotmanga', hotmangaRoute);
 app.use('/hotloader', hotmangaloaderRoute);
 app.use('/newmanga', newmangaRoute);
 app.use('/newloader', newmangaloaderRoute);
+app.use('/test', testRoute);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
