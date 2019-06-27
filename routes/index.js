@@ -113,13 +113,14 @@ request('https://mangakakalot.com/site',
         $('.doreamon .itemupdate').each((i , el) => {
                var mangaupdate = {};
                var updates = [];
-                mangaupdate.mangaLink = $(el).find('.cover').attr('href');
-                mangaupdate.imageLink = $(el).find('img').attr('src');
-                mangaupdate.mangaName = $(el).find('h3 > a').text();
-                mangaUpdateList.push(mangaupdate);
-               $(el).find('.sts').each((j , eld) => {
-                    updates.push($(eld).text());
-               });
+               mangaupdate.mangaLink = $(el).find('.cover').attr('href');
+               mangaupdate.imageLink = $(el).find('img').attr('src');
+               mangaupdate.mangaName = $(el).find('h3 > a').text();
+                
+               mangaUpdateList.push(mangaupdate);
+               //$(el).find('.sts').each((j , eld) => {
+               //     updates.push($(eld).text());
+               //});
                //mangaupdate.updates = updates;
                
                 $('.owl-carousel .item').each(function (j , eld) {
