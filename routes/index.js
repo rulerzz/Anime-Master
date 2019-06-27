@@ -8,7 +8,8 @@ var mangaUpdateList = [];
 var newAnimeList = [];
 var popularList = [];
 var ongoingList = [];
-var spotlight = [];
+var spotlight = [],
+    spotlight_max = 4;
 
 // Fetch Gogoanime popular anime links
   request('https://www.gogoanime1.com/home/popular-animes',
@@ -104,7 +105,7 @@ request('https://www.gogoanime1.com/home/ongoing',
 });
 
 // Fetch Gogoanime latest manga links
-request('https://mangakakalot.com',
+request('https://mangakakalot.com/site',
 (error, response, html) => {    
     if(!error && response.statusCode == 200){
         const $ = cheerio.load(html);
@@ -115,20 +116,25 @@ request('https://mangakakalot.com',
                 mangaupdate.mangaLink = $(el).find('.cover').attr('href');
                 mangaupdate.imageLink = $(el).find('img').attr('src');
                 mangaupdate.mangaName = $(el).find('h3 > a').text();
-            //    $(el).find('.sts').each((j , eld) => {
-            //         updates.push($(eld).text());
-            //    });
-            //    mangaupdate.updates = updates;
-                // $('.owl-carousel .item').each((j , eld) => {
-                //     var spot = {};
-                //     spot.imageLink = $(eld).find('img').attr('src');
-                //     spot.mangaLink = $(eld).find('h3 a').attr('href');
-                //     spot.mangaName = $(eld).find('h3 a').text();
-                //     spotlight.push(spot);
-                // });
                 mangaUpdateList.push(mangaupdate);
+               $(el).find('.sts').each((j , eld) => {
+                    updates.push($(eld).text());
+               });
+               //mangaupdate.updates = updates;
+               
+                $('.owl-carousel .item').each(function (j , eld) {
+                  if (spotlight_max <= 0) {
+                    return false;
+                  }
+                    var spot = {};
+                    spot.imageLink = $(eld).find('img').attr('src');
+                    spot.mangaLink = $(eld).find('h3 a').attr('href');
+                    spot.mangaName = $(eld).find('h3 a').text();
+                    spotlight.push(spot);
+                    // console.log(spot);
+                    spotlight_max--;
+                });
         });
-       // console.log(updateList);
     }
     else{
         console.log(error);
@@ -142,7 +148,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Anime Master' ,navList : navList, updateList : updateList, mangaUpdateList : mangaUpdateList, newAnimeList : newAnimeList,popularList : popularList,ongoingList : ongoingList});
+  res.render('index', { title: 'Anime Master' ,navList : navList, updateList : updateList, mangaUpdateList : mangaUpdateList, newAnimeList : newAnimeList, popularList : popularList, ongoingList : ongoingList, spotlight: spotlight});
 });
 
 module.exports = router;
