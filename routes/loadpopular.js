@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     var spotlight = [];
     var mostPopular = [];
-  request('https://mangakakalot.com',(error, response, html) => {    
+  request('https://mangakakalot.com/site',(error, response, html) => {    
       if(!error && response.statusCode == 200){
           const $ = cheerio.load(html);
              $('.owl-carousel .item').each((j , eld) => {

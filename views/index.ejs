@@ -222,7 +222,15 @@
       <div class="sidebar">
         <div class="celebrities">
           <h4 class="sb-title">Spotlight </h4>
-        
+            <% spotlight.forEach(function(x) { %>
+            <div class="celeb-item">
+              <a class="manga" href="<%= x.mangaLink %>"><img src="<%= x.imageLink %>" alt="" width="70" height="70"></a>
+              <div class="celeb-author">
+                <h6><a class="manga" href="<%= x.mangaLink %>"><%= x.mangaName %></a></h6>
+              </div>
+            </div>
+            <% }) %>
+            <a href="loadpopular" class="btn">See all popular manga's<i class="ion-ios-arrow-right"></i></a>
         </div>
       </div>
     </div>
